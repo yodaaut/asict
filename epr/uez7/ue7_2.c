@@ -8,8 +8,8 @@
  
 #include <stdio.h>
 
-double encode_runlength(char *s);
-int decode_runlength(char *s);
+double encode_runlength(char *s); //AAAABBBCCCCCCCCDEABBBBDDDDDDDD
+int decode_runlength(char *s);    //A4B3C8DEAB4D8
 
 int main(int argc, char argv[]){
   
