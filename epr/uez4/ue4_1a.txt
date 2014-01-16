@@ -1,0 +1,80 @@
+/*
+ * Name: ue4_1a.txt
+ * Autor: s1330003007
+ * Datum: 11.2013
+ *
+ * Beschreibung: Bit-Operatoren
+ */
+
+
+Beispiel 1:
+16 & 23 = 16
+Weil
+0 0 0 1 0 0 0 0 -> 16
+                UND
+0 0 0 1 0 1 1 1 -> 23
+---------------------
+0 0 0 1 0 0 0 0 -> 16
+
+Beispiel 2:
+16 | 23 = 23
+Weil
+0 0 0 1 0 0 0 0 -> 16
+                ODER
+0 0 0 1 0 1 1 1 -> 23
+---------------------
+0 0 0 1 0 1 1 1 -> 23
+
+Beispiel 3:
+23 << 4 = 112 (bei 8 bit)
+Weil
+        0 0 0 1 0 1 1 1 -> 23
+       |->8bit          Linksshift 4 (4 Stellen nach links Verschieben)
+0 0 0 1|0 1 1 1 0 0 0 0 -> 112 (die ersten 4 Stellen werden abgeschnitten)
+
+Beispiel 4:
+16 >> 2 = 4
+Weil
+0 0 0 1 0 0 0 0     -> 16
+                    Rechtsshift 2 (2 Stellen nach rechts Verschieben)
+0 0 0 0 0 1 0 0|0 0 -> 4 (die rechten 2 Stellen werden abgeschnitten und von
+                          links werden 2 Nullen angefuegt)
+
+Beispiel 5:
+23 << (23 >> 3) = 92
+Weil
+(zuerst den Klammer Ausdruck)
+0 0 0 1 0 1 1 1 -> 23
+                Rechtsshift 3
+0 0 0 0 0 0 1 0 -> 2 (3 Stellen nach Rechts verschieben)
+
+0 0 0 1 0 1 1 1 -> 23
+                Linksshift 2 (Ergebnis von vorhin)
+0 1 0 1 1 1 0 0 -> 92
+
+Beispiel 6:
+(23 >> 2) & (16 | (~12)) = 1
+Weil
+Zuerst linker Klammernausdruck (23>>2):
+0 0 0 1 0 1 1 1 -> 23
+                Rechtsshift 2
+0 0 0 0 0 1 0 1 -> 5
+
+Rechter Klammernausdruck (~12):
+0 0 0 0 1 1 0 0 -> 12
+                Komplement von 12
+1 1 1 1 0 0 1 1 -> 243
+
+Rechter Klammernausdruck (16 | 243):
+0 0 0 1 0 0 0 0 -> 16
+                ODER
+1 1 1 1 0 0 1 1 -> 243
+----------------------
+1 1 1 1 0 0 1 1 -> 243
+
+Zusammenfuehrung 5 & 243:
+0 0 0 0 0 1 0 1 -> 5
+                UND
+1 1 1 1 0 0 1 1 -> 243
+----------------------
+0 0 0 0 0 0 0 1 -> 1

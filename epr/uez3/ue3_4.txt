@@ -1,0 +1,125 @@
+/*
+ * Datei: ue3_4.txt
+ * Autor: s1330003007
+ * Datum: 11.2013
+ *
+ * Beschreibung: Operatoren-Allerlei
+*/
+
+#include <stdio.h>
+
+#define A 15
+#define B A-1
+#define ADD A+B
+#define SUB A-B
+#define INVB 1/B
+#define INV 1/ADD
+#define MUL A*B
+
+int add(int a, int b){
+  return a+b;
+}
+
+int main(void){
+  float pi = 3.14f;
+  float euro = 13.7603f;
+  int a = 90;
+  int b = 15;
+
+  printf("%d + %d = %d ? \n", A*2, B*2, ADD*2);
+  /* Es wird ausgegeben "30 + 13 = 28"
+     Der erste Wert "30" setzt sich aus "A*2" also "15*2" zusammen.
+     "13" entsteht durch fehlende Klammernsetzung in den Makros:
+     "B*2" wird zu "A-1*2" und dann "15-1*2", durch Punkt vor Strich ist das
+     Ergebnis dann "13"
+     Das Ergebnis "28" wird mit Makro "ADD*2" berechnet. Dieses setzt sich
+     aus "A+B*2" -> "15+A-1*2" -> "15+15-1*2" -> "15+15-2" -> "28"
+  */
+     
+  printf("%d / %d = %d\n", A, B, A/B);
+  /* Ausgabe: "15 / 14 = 0"
+     A=15; B=15-1=14; A/B=15/15-1->1-1=0 Aufgrund von fehlender Klammer kommt
+     dieser Wert heraus.
+  */
+
+  printf("%d\n", INVB);
+  /* Ausgabe: "-1"
+     1/B=1/15-1 -> durch fehlende Klammer wird zuerst 1/15 dividiert, nach
+     der Division wird durch %d (Integer) die Kommastelle
+     abgeschnitten und somit ist das Ergebnis: 0-1="-1"
+  */
+
+  printf("%d\n", INV);
+  /* Ausgabe: "14"
+     INV=1/ADD -> 1/A+B -> 1/15+15-1 -> Gleiches Problem wie vorhin, fehlende
+     Klammern und Ausgabe in Integer, somit 0+14="14"
+  */
+
+  printf("sizeof(pi+euro) = %d\n", sizeof(pi+euro));
+  /* Ausgabe: 4
+     Nachdem "pi" bzw "euro" als float deklariert sind, ist die maximale
+     Groeße 4Byte, also 32Bit
+  */
+
+  printf("sizeof(3.14+13.7603) = %d\n", sizeof(3.14+13.7603));
+  /* Ausgabe: 8
+     In diesem Fall wird fuer "3.14" und "13.7603" durch den "." die
+     Typendefinition "double" bestimmt. "double" hat die maximale Groeße von
+     8Byte, also 64Bit.
+  */
+
+  printf("sizeof('r'+1) = %d\n", sizeof('r'+1.f));
+  /* Ausgabe: 4
+     Hier wird der groeßt moegliche Wert ausgegeben, in diesem Fall 4Byte fuer
+     float.
+  */
+
+  printf("%d + %d = %d ? \n", ++a, b++, add(a,b));
+  /* Ausgabe: 91 + 15 = 105
+     Hier wird fuer a=90, noch vor dem Auswerten der Variable +1 gerechnet.
+     Fuer b=15 wird zuerst "15" ausgewertet und danach +1 gerechnet.
+     Bei der Funktion "add" werden die zu diesem Zeitpunkt gueltigen Werte
+     addiert, also 90+15.
+     Diese Schreibweise ist nicht zu empfehlen, da unter Umstaenden auch
+     91+16 gerechnet werden koennte, da sich die Variablen in einem
+     undefinierten Zustand befinden.
+  */
+
+  printf("max(%d, %d) = %d\n", a, b, (a > b ? a : b));
+  /* Ausgabe: max(91, 16) = 91
+     In der vorherigen printf-Funktion wurden die beiden Variablen a und b um
+     1 erhoeht, dadurch steht hier 91 und 16 statt 90 und 15.
+     Im zweiten Schritt wurde mit einer verkuerzten If-Abfrage geprueft, ob
+     91 groeßer als 16 ist. Da die Pruefung WAHR ist, wird der Wert von a (91)
+     ausgegeben.
+  */
+
+  printf("%d > %d ? %d\n", a, b, (a > b) || (a = 100));
+  /* Ausgabe: 91 > 16 ? 1
+     Die Werte von a und b haben sich seit der letzten printf-Funktion nicht
+     geaendert, somit die Frage ist 91 groeßer 16 ?.
+     Als Antwort kann eigentlich nur 1 herauskommen, da
+     a (91) groesser als b (16) ist, also 1, so muss der rechte Ausdruck nicht
+     mehr geprueft werden.
+     Sollte allerdings a kleiner als b sein, wuerde durch das setzen von a=100
+     wieder 1 herauskommen.
+  */
+
+  printf("a = %d\n", a);
+  /* Ausgabe: a = 91
+     Nachdem in der vorherigen Funktion, der linke Ausdruck True ergeben hat,
+     wurde der rechte Ausdruck (a=100) nicht ausgewertet.
+     Somit bleibt der Wert von a unveraendert bei "91".
+  */
+
+  b=b+pi+euro+0.5;
+  printf("b = %d\n",b);
+  /* Ausgabe: b = 33
+     Es werden zuerst die Zahlen in float addiert:
+     16+3.14+13.7603+0.5 = 16+3.14+14.2603 = 16+17.403 = 33.403
+     Nachdem b ein Integer ist, werden die Kommastellen abgeschnitten und
+     nur b=33 gespeichert.
+  */
+
+  return 0;
+}

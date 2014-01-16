@@ -1,6 +1,6 @@
 /*
  * Filename: ue7_2.c
- * Autor: yodaaut
+ * Autor: s1330003007
  * Date: 01.2014
  *
  * Description: Run-length encoding
@@ -11,15 +11,20 @@
 double encode_runlength(char *s); //AAAABBBCCCCCCCCDEABBBBDDDDDDDD
 int decode_runlength(char *s);    //A4B3C8DEAB4D8
 
-int main(int argc, char argv[]){
-  
-  
+int main(int argc, char *argv[]){
+  if(argc!=2){
+    printf("Kein oder zuviele Parameter angegeben!\n");
+    return 1;
+  }
+  encode_runlength(argv[1]);
+  printf("%s\n", argv[1]);
   return 0;
 }
 
 
 double encode_runlength(char *s){
-  
+  printf("%s\n", s);
+  *s="bar";
   
   return 0.;
 }
