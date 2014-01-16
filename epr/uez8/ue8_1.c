@@ -8,6 +8,7 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int check_pangramm(char *s);
 
@@ -23,7 +24,8 @@ int main(int argc, char *argv[]){
 
 int check_pangramm(char *s){
   int i;
-  int letters[26];
+  int *letters;
+  letters=(int*) calloc(26, sizeof(int));
   for(i=0;*(s+i) != 0; i++){
     if(*(s+i)>='A'&&*(s+i)<='Z'){
       *(s+i)+=32;
@@ -31,7 +33,7 @@ int check_pangramm(char *s){
 
   }
   for(i=0;*(s+i) != 0; i++){
-    if(*(s+i)==' '){
+    if(!(*(s+i)>='a'&&*(s+i)<='z')){
       continue;
     }
     *(letters+(*(s+i)-97))=1;
@@ -42,7 +44,7 @@ int check_pangramm(char *s){
       return 0;
     }
   }
-
+  free(letters);
 
   return 1;
 }
