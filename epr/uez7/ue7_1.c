@@ -39,8 +39,9 @@ int main(void){
    * Print the value at the address of p.
    */
   printf("Step  5: %d\n", *p);
-  /* Der Wert hat sich geaendert. Begruendung: ....
-   *
+  /* Der Wert hat sich geaendert.
+   * Begruendung: Der Wert an der Speicheradresse von x wurde ueberschrieben.
+   * Der Pointer p zeigt auf die Speicheradresse von x.
    */
 
   /*
@@ -51,9 +52,15 @@ int main(void){
 
   /*
    * Step 8:
-   *
    */
   printf("Step  8: %d\n", *p);
+  /*
+   * Der Wert hat sich nicht veraendert.
+   * Begruendung: Bei dem Funktionsaufruf f1(*p) wurde lediglich der Inhalt an
+   * der Speicheradresse auf die der Pointer p zeigt in die Funktion kopiert.
+   * Nach dem Beenden der Funktion ist der kopierte Wert wieder geloescht. Der
+   * Ursprungswert hat sich aber nicht veraendert.
+   */
 
   /*
    * Step 10:
@@ -63,11 +70,15 @@ int main(void){
 
   /*
    * Step 11:
-   *
    */
   printf("Step 11: %d\n", *p);
   /*
-   * Begruendung
+   * Der Wert hat sich veraendert.
+   * Begruendung: Diesmal wurde der Funktion die Speicheradresse auf die der
+   * Pointer p zeigt uebergeben bzw in die Funktion kopiert. Innerhalb der
+   * Funktion wurde dann auf die Speicheradresse von x dereferenziert und somit
+   * der Wert ueberschrieben. Nach Beendigung der Funktion wurde zwar die Kopie
+   * der Speicheradresse geloescht, aber der Wert wurde bereits ueberschrieben.
    */
   
   return 0;
